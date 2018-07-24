@@ -1,11 +1,13 @@
 require 'dotenv/load'
 require_relative 'menu'
+require_relative 'order'
 require 'twilio-ruby'
 class Takeaway 
   attr_reader :menu, :basket, :total 
-  def initialize(menu = Menu)
+  def initialize(menu = Menu, order=Order )
     @menu = menu.new # pass in menu class here. menu.new will boot up any obj. 
     @basket = []
+    @order = order.new 
   end
   
   def display_menu 
@@ -20,23 +22,17 @@ class Takeaway
     end 
   end 
 
+  def order 
+    @order.confirm_order 
+  end 
+
+
   def bill
     total = 0 
     @basket.each { |x| x.each { |_, price| total += price } }  
-    total
+    total 
   end
 
-  def order 
-    arrival_time = Time.new + (60 * 60)
-    "Order is on it's way! ETA: #{arrival_time.strftime("%H:%M")}"
-    account_sid = ENV['TWILIO_SID']
-    auth_token = ENV['TWILIO_TOKEN']
-    @client = Twilio::REST::Client.new(account_sid, auth_token)
-    
-    @client.messages.create(
-      from: ENV['TWILIO_NUM'], 
-      to: ENV['MY_NUM'],
-      body: "Order is on it's way, your data is safe! ETA: #{arrival_time.strftime("%H:%M")}")
-  end 
+  
 
 end
