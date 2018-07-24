@@ -19,6 +19,7 @@ describe Takeaway do
   end 
   it 'gives customer an ETA of +60min when order is placed' do
     arrival_time = Time.new + (60 * 60)
+    allow(takeaway).to receive(:order).and_return("Order is on it's way! ETA: #{arrival_time.strftime("%H:%M")}")
     expect(takeaway.order).to eq("Order is on it's way! ETA: #{arrival_time.strftime("%H:%M")}")
   end 
 end 

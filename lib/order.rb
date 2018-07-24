@@ -1,8 +1,12 @@
+require_relative 'takeaway'
 class Order 
-  def show_bill 
-     
+  def show_bill(basket) 
+    total = 0
+    basket.each { |x| x.each { |_, price| total += price } }  
+    total
 end 
-    def confirm_order 
+
+  def confirm_order 
     arrival_time = Time.new + (60 * 60)
     "Order is on it's way! ETA: #{arrival_time.strftime("%H:%M")}"
     account_sid = ENV['TWILIO_SID']
@@ -14,4 +18,4 @@ end
       to: ENV['MY_NUM'],
       body: "Order is on it's way, your data is safe! ETA: #{arrival_time.strftime("%H:%M")}")
   end 
-end 
+end
