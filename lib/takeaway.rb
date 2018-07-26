@@ -29,7 +29,4 @@ class Takeaway
   def bill
     @order.show_bill(@basket)
   end
-
-  
-
 end
