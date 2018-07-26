@@ -6,7 +6,7 @@ class Menu
       
     end 
 
-  def display # need to print menu here 
+  def display 
     items
 end 
 end
