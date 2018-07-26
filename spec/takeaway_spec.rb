@@ -23,7 +23,3 @@ describe Takeaway do
     expect(takeaway.order).to eq("Order is on it's way! ETA: #{arrival_time.strftime("%H:%M")}")
   end 
 end 
-
-# let(:fake_menu) {double :fake_menu, new: menu_class}
-#   let (:menu_class) {double :menu_instance} 
-#   let(:subject) { described_class.new(fake_menu) }
